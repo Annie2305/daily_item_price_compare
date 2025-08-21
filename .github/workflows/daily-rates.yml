@@ -21,6 +21,8 @@ jobs:
           node-version: '20'
 
       - name: Fetch latest rates
+        env:
+          EXCHANGERATES_API_KEY: ${{ secrets.EXCHANGERATES_API_KEY }}
         run: |
           node --version
           npm --version || true

@@ -14,6 +14,7 @@ async function fetchJson(url) {
 }
 
 async function fetchRates() {
+  const key = process.env.EXCHANGERATES_API_KEY;
   const providers = [
     {
       name: 'frankfurter',
@@ -24,11 +25,22 @@ async function fetchRates() {
       name: 'exchangerate.host',
       url: 'https://api.exchangerate.host/latest?base=USD',
       normalize: (data) => ({ base: data.base || 'USD', date: data.date, rates: data.rates })
-    }
+    },
+    // If a key is provided, try exchangeratesapi.io as the highest-priority source
+    ...(key ? [{
+      name: 'exchangeratesapi.io',
+      url: `https://api.exchangeratesapi.io/v1/latest?access_key=${encodeURIComponent(key)}&base=USD`,
+      normalize: (data) => {
+        if (data.error) throw new Error(data.error.type || 'API error');
+        return { base: data.base || 'USD', date: data.date, rates: data.rates };
+      }
+    }] : [])
   ];
 
   const errors = [];
-  for (const p of providers) {
+  // Prefer the paid/keyed provider if present by moving it to the front
+  const ordered = providers.sort((a, b) => (a.name === 'exchangeratesapi.io' ? -1 : b.name === 'exchangeratesapi.io' ? 1 : 0));
+  for (const p of ordered) {
     try {
       const raw = await fetchJson(p.url);
       const { base, date, rates } = p.normalize(raw) || {};

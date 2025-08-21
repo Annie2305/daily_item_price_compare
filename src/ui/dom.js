@@ -97,7 +97,7 @@ function updateProgress(pct) {
 export function updateExchangeRateStatus(type, message, showRefresh = false, onRefresh) {
   el.statusBar.className = `exchange-rate-status ${type}`;
   el.statusBar.innerHTML = `<span>${message}</span>` +
-    (showRefresh ? `<button id="refreshRatesBtn">手動更新</button>` : '');
+    (showRefresh ? `<button id="refreshRatesBtn">Refresh</button>` : '');
   if (showRefresh && onRefresh) {
     document.getElementById('refreshRatesBtn').addEventListener('click', onRefresh);
   }

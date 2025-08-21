@@ -12,7 +12,7 @@ async function loadExchangeRates(force = false) {
     setRates(rates);
 
     const rateCount = Object.keys(rates).length;
-    const lastUpdated = new Date().toLocaleString();
+    const lastUpdated = new Date().toLocaleString('en-US', { hour12: true });
     updateExchangeRateStatus(
       'success',
       `✅ Exchange rates loaded (${rateCount} currencies) | Updated: ${lastUpdated}`,
