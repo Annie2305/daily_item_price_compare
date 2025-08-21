@@ -1,0 +1,13 @@
+{
+  "name": "daily_item_price_compare",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch:rates": "node ./scripts/fetch_rates.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
+
+

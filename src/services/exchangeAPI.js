@@ -1,27 +1,39 @@
 // src/services/exchangeApi.js
 export class ExchangeRateAPI {
     constructor() {
-      this.apiKey = "433f21b0a4eda549e5657cbd3eb58fc6";
-      // 官方建議的 endpoint 格式：
-      // https://api.exchangeratesapi.io/v1/latest?access_key=API_KEY&base=USD
-      this.apiUrl = `https://api.exchangeratesapi.io/v1/latest?access_key=${this.apiKey}&base=USD`;
-      this.cacheKey = "exchange_rates_cache";
+      // 首選：載入每日由後端/CI 產生的靜態檔案，避免每位使用者都打外部 API
+      this.dailyStaticUrl = './data/rates-usd.json';
+
+      // 後備：免費公共 API（不需要金鑰）
+      this.fallbackPrimary = 'https://api.frankfurter.app/latest?from=USD';
+      this.fallbackSecondary = 'https://api.exchangerate.host/latest?base=USD';
+
+      // 舊的付費 API（避免在前端暴露金鑰，不再作為主要來源）
+      // 保留為第三層後備，僅當其他來源都失敗時再嘗試，且只有在你確定允許暴露金鑰時才啟用
+      this.apiKey = undefined; // 放棄前端金鑰，改由 CI 取得
+      this.cacheKey = 'exchange_rates_cache';
       this.cacheDuration = 24 * 60 * 60 * 1000; // 24 小時
     }
-  
-    async fetchRates() {
-      const res = await fetch(this.apiUrl);
-      if (!res.ok) throw new Error(`ExchangeRate API 錯誤: ${res.status}`);
+
+    async fetchDailyFromStatic() {
+      const res = await fetch(this.dailyStaticUrl, { cache: 'no-cache' });
+      if (!res.ok) throw new Error(`Static rates load failed: ${res.status}`);
       const data = await res.json();
-  
-      if (data.error) {
-        throw new Error(`ExchangeRate API 錯誤: ${data.error.type}`);
-      }
-  
-      return { rates: data.rates, base: data.base, date: data.date };
+      if (!data || !data.rates) throw new Error('Static rates missing content');
+      return { rates: data.rates, base: data.base || 'USD', date: data.date };
     }
-  
-    getCachedRates() {
+
+    async fetchFromPublicApi(url) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Public API error: ${res.status}`);
+      const data = await res.json();
+      // frankfurter returns { base, date, rates }
+      // exchangerate.host returns { base, date, rates, success }
+      if (!data || !data.rates) throw new Error('Public API invalid payload');
+      return { rates: data.rates, base: data.base || 'USD', date: data.date };
+    }
+
+    getCached() {
       try {
         const cached = localStorage.getItem(this.cacheKey);
         if (!cached) return null;
@@ -36,8 +48,8 @@ export class ExchangeRateAPI {
         return null;
       }
     }
-  
-    cacheRates(rates) {
+
+    cache(rates) {
       const cacheData = {
         rates: rates.rates,
         timestamp: Date.now(),
@@ -47,16 +59,33 @@ export class ExchangeRateAPI {
         localStorage.setItem(this.cacheKey, JSON.stringify(cacheData));
       } catch {}
     }
-  
+
     async getRates(force = false) {
       if (force) localStorage.removeItem(this.cacheKey);
-  
-      const cached = this.getCachedRates();
+
+      const cached = this.getCached();
       if (cached) return cached.rates;
-  
-      const fresh = await this.fetchRates();
-      this.cacheRates(fresh);
-      return fresh.rates;
+
+      // 1) 嘗試讀取每日靜態檔案（由 CI 每日更新）
+      try {
+        const staticRates = await this.fetchDailyFromStatic();
+        this.cache(staticRates);
+        return staticRates.rates;
+      } catch {}
+
+      // 2) 後備：公共 API（無需金鑰）
+      try {
+        const primary = await this.fetchFromPublicApi(this.fallbackPrimary);
+        this.cache(primary);
+        return primary.rates;
+      } catch {}
+      try {
+        const secondary = await this.fetchFromPublicApi(this.fallbackSecondary);
+        this.cache(secondary);
+        return secondary.rates;
+      } catch {}
+
+      // 3) 最後手段：報錯
+      throw new Error('Unable to load exchange rates from any source');
     }
-  }
-  
+}
