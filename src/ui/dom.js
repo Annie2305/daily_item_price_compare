@@ -60,7 +60,7 @@ export function bindNavigation() {
   el.startOverBtn.addEventListener('click', startOver);
   
   // Add event listener for the "Change Countries" button in step 3
-  document.getElementById('backToCountries').addEventListener('click', changeCountries);
+  document.getElementById('changeCountries').addEventListener('click', changeCountries);
   
   el.showBtn.addEventListener('click', () => {
     if (!state.ratesLoaded) {
