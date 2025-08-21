@@ -65,6 +65,18 @@ async function init() {
     }
   } catch {}
 
+  // Load iPhone 16 Pro dataset
+  try {
+    const res = await fetch('./data/iphone16pro.json', { cache: 'no-cache' });
+    if (res.ok) {
+      const iphone = await res.json();
+      setDynamicLocalPrices({
+        ...(state.dynamicLocalPrices || {}),
+        iphone16pro: iphone.prices
+      });
+    }
+  } catch {}
+
   // Load latte USD dataset, to be converted to local currencies via exchange rates
   try {
     const res = await fetch('./data/latte-usd.json', { cache: 'no-cache' });

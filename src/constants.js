@@ -62,7 +62,8 @@ export const CURRENCY_SYMBOLS = {
   
   export const productNames = {
     bigmac: 'Big Mac',
-    latte: 'Starbucks Latte'
+    latte: 'Starbucks Latte',
+    iphone16pro: 'iPhone 16 Pro 256GB'
   };
   
   // 這裡保留你原本的假資料（之後可換 API）
@@ -100,6 +101,23 @@ export const CURRENCY_SYMBOLS = {
       TW: { amount: 140, currency: 'TWD' },
       KR: { amount: 5500, currency: 'KRW' },
       SG: { amount: 5.40, currency: 'SGD' }
+    },
+    iphone16pro: {
+      US: { amount: 1099, currency: 'USD' },
+      UK: { amount: 1099, currency: 'GBP' },
+      CA: { amount: 1599, currency: 'CAD' },
+      AU: { amount: 1999, currency: 'AUD' },
+      DE: { amount: 1329, currency: 'EUR' },
+      FR: { amount: 1359, currency: 'EUR' },
+      JP: { amount: 174800, currency: 'JPY' },
+      CN: { amount: 8999, currency: 'CNY' },
+      IN: { amount: 129900, currency: 'INR' },
+      BR: { amount: 11299, currency: 'BRL' },
+      MX: { amount: 28499, currency: 'MXN' },
+      RU: { amount: 0, currency: 'RUB' },
+      TW: { amount: 40400, currency: 'TWD' },
+      KR: { amount: 1700000, currency: 'KRW' },
+      SG: { amount: 1749, currency: 'SGD' }
     }
   };
   
