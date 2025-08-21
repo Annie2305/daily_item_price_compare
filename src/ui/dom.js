@@ -108,8 +108,10 @@ export function renderComparison() {
   const from = state.fromCountry;
   const to = state.toCountry;
 
-  const fromPrice = localPrices[product][from];
-  const toPrice = localPrices[product][to];
+  // Prefer dynamic prices if present, otherwise fall back to static demo prices
+  const dynamic = state.dynamicLocalPrices && state.dynamicLocalPrices[product];
+  const fromPrice = dynamic?.[from] ? { amount: dynamic[from], currency: CURRENCY_CODES[from] } : localPrices[product][from];
+  const toPrice = dynamic?.[to] ? { amount: dynamic[to], currency: CURRENCY_CODES[to] } : localPrices[product][to];
   if (!fromPrice || !toPrice) throw new Error('Price data not found for selected countries');
 
   const fromUSD = convertToUSD(fromPrice.amount, fromPrice.currency, state.exchangeRates);

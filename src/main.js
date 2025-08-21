@@ -1,6 +1,6 @@
 // src/main.js
 import { ExchangeRateAPI } from './services/exchangeAPI.js';
-import { state, setRates, setRatesError } from './state.js';
+import { state, setRates, setRatesError, setDynamicLocalPrices } from './state.js';
 import { populateCountrySelects, bindProductCards, bindNavigation, updateExchangeRateStatus } from './ui/dom.js';
 
 const exchangeAPI = new ExchangeRateAPI();
@@ -56,6 +56,14 @@ async function init() {
   populateCountrySelects();
   bindProductCards();
   bindNavigation();
+  // Load dynamic product price data (Big Mac Index) if available
+  try {
+    const res = await fetch('./data/bigmac.json', { cache: 'no-cache' });
+    if (res.ok) {
+      const bigmac = await res.json();
+      setDynamicLocalPrices({ bigmac: bigmac.prices });
+    }
+  } catch {}
   await loadExchangeRates();
   scheduleDailyUpdate();
   console.log('✅ 應用程式初始化完成');

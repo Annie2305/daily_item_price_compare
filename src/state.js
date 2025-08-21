@@ -6,7 +6,8 @@ export const state = {
     currentStep: 1,
     exchangeRates: {},
     ratesLoaded: false,
-    ratesError: null
+    ratesError: null,
+    dynamicLocalPrices: null
   };
   
   export function resetState() {
@@ -25,5 +26,9 @@ export const state = {
   export function setRatesError(message) {
     state.ratesLoaded = false;
     state.ratesError = message;
+  }
+
+  export function setDynamicLocalPrices(prices) {
+    state.dynamicLocalPrices = prices;
   }
   
