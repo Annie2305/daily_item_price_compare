@@ -110,7 +110,7 @@ export function renderComparison() {
 
   const fromPrice = localPrices[product][from];
   const toPrice = localPrices[product][to];
-  if (!fromPrice || !toPrice) throw new Error('找不到價格資料');
+  if (!fromPrice || !toPrice) throw new Error('Price data not found for selected countries');
 
   const fromUSD = convertToUSD(fromPrice.amount, fromPrice.currency, state.exchangeRates);
   const toUSD = convertToUSD(toPrice.amount, toPrice.currency, state.exchangeRates);

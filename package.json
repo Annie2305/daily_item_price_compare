@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "fetch:rates": "node ./scripts/fetch_rates.mjs"
+    "fetch:rates": "node ./scripts/fetch_rates.mjs",
+    "dev": "python3 -m http.server 5173 -d ."
   },
   "engines": {
     "node": ">=18"

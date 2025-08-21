@@ -6,16 +6,40 @@ export const CURRENCY_SYMBOLS = {
   };
   
   export const CURRENCY_CODES = {
+    // Existing
     US: 'USD', UK: 'GBP', CA: 'CAD', AU: 'AUD', DE: 'EUR',
     FR: 'EUR', JP: 'JPY', CN: 'CNY', IN: 'INR', BR: 'BRL',
-    MX: 'MXN', RU: 'RUB', TW: 'TWD', KR: 'KRW', SG: 'SGD'
+    MX: 'MXN', RU: 'RUB', TW: 'TWD', KR: 'KRW', SG: 'SGD',
+    // Added list
+    AE: 'AED', AR: 'ARS', AZ: 'AZN', BH: 'BHD', CH: 'CHF',
+    CL: 'CLP', CO: 'COP', CR: 'CRC', CZ: 'CZK', DK: 'DKK',
+    EG: 'EGP', EA: 'EUR', GT: 'GTQ', HK: 'HKD', HN: 'HNL',
+    HU: 'HUF', ID: 'IDR', IL: 'ILS', JO: 'JOD', KW: 'KWD',
+    LB: 'LBP', MD: 'MDL', MY: 'MYR', NI: 'NIO', NO: 'NOK',
+    NZ: 'NZD', OM: 'OMR', PK: 'PKR', PE: 'PEN', PH: 'PHP',
+    PL: 'PLN', QA: 'QAR', RO: 'RON', SA: 'SAR', SE: 'SEK',
+    TH: 'THB', TR: 'TRY', UA: 'UAH', UY: 'UYU', VE: 'VES',
+    VN: 'VND', ZA: 'ZAR'
   };
   
   export const countryNames = {
+    // Existing
     US: 'United States', UK: 'United Kingdom', CA: 'Canada',
     AU: 'Australia', DE: 'Germany', FR: 'France', JP: 'Japan',
     CN: 'China', IN: 'India', BR: 'Brazil', MX: 'Mexico',
-    RU: 'Russia', TW: 'Taiwan', KR: 'South Korea', SG: 'Singapore'
+    RU: 'Russia', TW: 'Taiwan', KR: 'South Korea', SG: 'Singapore',
+    // Added list (from screenshot)
+    AE: 'United Arab Emirates', AR: 'Argentina', AZ: 'Azerbaijan',
+    BH: 'Bahrain', CH: 'Switzerland', CL: 'Chile', CO: 'Colombia',
+    CR: 'Costa Rica', CZ: 'Czech Republic', DK: 'Denmark',
+    EG: 'Egypt', EA: 'Euro area', GT: 'Guatemala', HK: 'Hong Kong',
+    HN: 'Honduras', HU: 'Hungary', ID: 'Indonesia', IL: 'Israel',
+    JO: 'Jordan', KW: 'Kuwait', LB: 'Lebanon', MD: 'Moldova',
+    MY: 'Malaysia', NI: 'Nicaragua', NO: 'Norway', NZ: 'New Zealand',
+    OM: 'Oman', PK: 'Pakistan', PE: 'Peru', PH: 'Philippines',
+    PL: 'Poland', QA: 'Qatar', RO: 'Romania', SA: 'Saudi Arabia',
+    SE: 'Sweden', TH: 'Thailand', TR: 'Turkey', UA: 'Ukraine',
+    UY: 'Uruguay', VE: 'Venezuela', VN: 'Vietnam', ZA: 'South Africa'
   };
   
   export const productNames = {

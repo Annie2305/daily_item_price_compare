@@ -47,6 +47,12 @@ function scheduleDailyUpdate() {
 
 async function init() {
   console.log('🚀 初始化 PriceCompare 應用程式...');
+  // If opened directly from disk, many browsers restrict module imports/fetch.
+  if (window.location.protocol === 'file:') {
+    updateExchangeRateStatus('error', 'Please run a local server (e.g., npm run dev) and open http://localhost:5173');
+    console.warn('App opened via file://. Start a local server to enable module imports and fetch.');
+    return;
+  }
   populateCountrySelects();
   bindProductCards();
   bindNavigation();
