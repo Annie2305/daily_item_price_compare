@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "fetch:rates": "node ./scripts/fetch_rates.mjs",
-    "dev": "python3 -m http.server 5173 -d ."
+    "dev": "python3 -m http.server 5173 -d .",
+    "ingest:bigmac": "node ./scripts/ingest_bigmac_csv.mjs"
   },
   "engines": {
     "node": ">=18"
