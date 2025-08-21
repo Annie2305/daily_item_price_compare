@@ -29,10 +29,20 @@ async function fetchRates() {
     // If a key is provided, try exchangeratesapi.io as the highest-priority source
     ...(key ? [{
       name: 'exchangeratesapi.io',
-      url: `https://api.exchangeratesapi.io/v1/latest?access_key=${encodeURIComponent(key)}&base=USD`,
+      // Note: free plan forces base EUR; request without base and convert to USD locally
+      url: `https://api.exchangeratesapi.io/v1/latest?access_key=${encodeURIComponent(key)}`,
       normalize: (data) => {
         if (data.error) throw new Error(data.error.type || 'API error');
-        return { base: data.base || 'USD', date: data.date, rates: data.rates };
+        const base = data.base || 'EUR';
+        const date = data.date;
+        const eurRates = data.rates;
+        if (!eurRates || typeof eurRates !== 'object') throw new Error('Invalid rates');
+        if (!eurRates.USD) throw new Error('USD rate missing (plan may restrict)');
+        const usdPerEur = eurRates.USD; // USD per EUR
+        // Convert all EUR-based rates to USD-based: rateUSD->C = (C per EUR) / (USD per EUR)
+        const usdBaseRates = Object.fromEntries(Object.entries(eurRates).map(([code, rate]) => [code, rate / usdPerEur]));
+        usdBaseRates.USD = 1;
+        return { base: 'USD', date, rates: usdBaseRates };
       }
     }] : [])
   ];
@@ -40,12 +50,18 @@ async function fetchRates() {
   const errors = [];
   // Prefer the paid/keyed provider if present by moving it to the front
   const ordered = providers.sort((a, b) => (a.name === 'exchangeratesapi.io' ? -1 : b.name === 'exchangeratesapi.io' ? 1 : 0));
+  // eslint-disable-next-line no-console
+  console.log(`Key present: ${Boolean(key)} | Provider order: ${ordered.map(p => p.name).join(' -> ')}`);
   for (const p of ordered) {
     try {
+      // eslint-disable-next-line no-console
+      console.log(`Trying provider: ${p.name}`);
       const raw = await fetchJson(p.url);
       const { base, date, rates } = p.normalize(raw) || {};
       if (!rates || typeof rates !== 'object') throw new Error('Invalid rates payload');
-      return { base, date, rates };
+      // eslint-disable-next-line no-console
+      console.log(`Fetched ${Object.keys(rates).length} rates from: ${p.name}`);
+      return { base, date, rates, source: p.name };
     } catch (err) {
       errors.push(`${p.name}: ${err.message}`);
     }
