@@ -41,6 +41,24 @@ export const CURRENCY_SYMBOLS = {
     SE: 'Sweden', TH: 'Thailand', TR: 'Turkey', UA: 'Ukraine',
     UY: 'Uruguay', VE: 'Venezuela', VN: 'Vietnam', ZA: 'South Africa'
   };
+
+  // Additional countries for latte USD dataset
+  Object.assign(CURRENCY_CODES, {
+    AD: 'EUR', AW: 'AWG', AT: 'EUR', BE: 'EUR', BO: 'BOB', BG: 'BGN',
+    KH: 'KHR', CY: 'EUR', SV: 'USD', FI: 'EUR', GR: 'EUR', IE: 'EUR',
+    IT: 'EUR', JM: 'JMD', LU: 'EUR', MC: 'EUR', MA: 'MAD', NL: 'EUR',
+    PA: 'USD', PT: 'EUR', PR: 'USD', SK: 'EUR', ES: 'EUR', TT: 'TTD',
+    BS: 'BSD'
+  });
+
+  Object.assign(countryNames, {
+    AD: 'Andorra', AW: 'Aruba', AT: 'Austria', BE: 'Belgium', BO: 'Bolivia',
+    BG: 'Bulgaria', KH: 'Cambodia', CY: 'Cyprus', SV: 'El Salvador',
+    FI: 'Finland', GR: 'Greece', IE: 'Ireland', IT: 'Italy', JM: 'Jamaica',
+    LU: 'Luxembourg', MC: 'Monaco', MA: 'Morocco', NL: 'Netherlands',
+    PA: 'Panama', PT: 'Portugal', PR: 'Puerto Rico', SK: 'Slovakia',
+    ES: 'Spain', TT: 'Trinidad and Tobago', BS: 'Bahamas'
+  });
   
   export const productNames = {
     bigmac: 'Big Mac',

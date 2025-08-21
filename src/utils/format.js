@@ -18,3 +18,10 @@ export function convertToUSD(localAmount, fromCurrency, exchangeRates) {
   if (!rate) throw new Error(`找不到 ${fromCurrency} 的匯率`);
   return localAmount / rate;
 }
+
+export function convertUSDToLocal(usdAmount, toCurrency, exchangeRates) {
+  if (toCurrency === 'USD') return usdAmount;
+  const rate = exchangeRates[toCurrency];
+  if (!rate) throw new Error(`找不到 ${toCurrency} 的匯率`);
+  return usdAmount * rate;
+}

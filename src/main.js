@@ -64,6 +64,19 @@ async function init() {
       setDynamicLocalPrices({ bigmac: bigmac.prices });
     }
   } catch {}
+
+  // Load latte USD dataset, to be converted to local currencies via exchange rates
+  try {
+    const res = await fetch('./data/latte-usd.json', { cache: 'no-cache' });
+    if (res.ok) {
+      const latte = await res.json();
+      // Store as USD; conversion happens in render
+      state.dynamicLocalPrices = {
+        ...(state.dynamicLocalPrices || {}),
+        latteUSD: latte.prices
+      };
+    }
+  } catch {}
   await loadExchangeRates();
   scheduleDailyUpdate();
   console.log('✅ 應用程式初始化完成');

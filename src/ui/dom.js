@@ -1,7 +1,7 @@
 // src/ui/dom.js
 import { state, resetState } from '../state.js';
 import { countryNames, localPrices, productNames, CURRENCY_CODES } from '../constants.js';
-import { formatCurrency, convertToUSD } from '../utils/format.js';
+import { formatCurrency, convertToUSD, convertUSDToLocal } from '../utils/format.js';
 
 const el = {
   fromSelect: document.getElementById('fromCountry'),
@@ -109,9 +109,24 @@ export function renderComparison() {
   const to = state.toCountry;
 
   // Prefer dynamic prices if present, otherwise fall back to static demo prices
-  const dynamic = state.dynamicLocalPrices && state.dynamicLocalPrices[product];
-  const fromPrice = dynamic?.[from] ? { amount: dynamic[from], currency: CURRENCY_CODES[from] } : localPrices[product][from];
-  const toPrice = dynamic?.[to] ? { amount: dynamic[to], currency: CURRENCY_CODES[to] } : localPrices[product][to];
+  const dynamic = state.dynamicLocalPrices || {};
+  let fromPrice;
+  let toPrice;
+  if (product === 'latte' && dynamic.latteUSD) {
+    const usdFrom = dynamic.latteUSD[from];
+    const usdTo = dynamic.latteUSD[to];
+    if (usdFrom != null && usdTo != null) {
+      const fromCur = CURRENCY_CODES[from] || 'USD';
+      const toCur = CURRENCY_CODES[to] || 'USD';
+      fromPrice = { amount: convertUSDToLocal(usdFrom, fromCur, state.exchangeRates), currency: fromCur };
+      toPrice = { amount: convertUSDToLocal(usdTo, toCur, state.exchangeRates), currency: toCur };
+    }
+  }
+  if (!fromPrice || !toPrice) {
+    const dynLocal = dynamic[product];
+    fromPrice = fromPrice || (dynLocal?.[from] ? { amount: dynLocal[from], currency: CURRENCY_CODES[from] } : localPrices[product][from]);
+    toPrice = toPrice || (dynLocal?.[to] ? { amount: dynLocal[to], currency: CURRENCY_CODES[to] } : localPrices[product][to]);
+  }
   if (!fromPrice || !toPrice) throw new Error('Price data not found for selected countries');
 
   const fromUSD = convertToUSD(fromPrice.amount, fromPrice.currency, state.exchangeRates);
