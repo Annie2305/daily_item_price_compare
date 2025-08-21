@@ -55,9 +55,13 @@ export function bindNavigation() {
   el.fromSelect.addEventListener('change', onCountryChange);
   el.toSelect.addEventListener('change', onCountryChange);
   el.nextBtn.addEventListener('click', () => goToStep(2));
-  el.backToCountriesBtn.addEventListener('click', () => goToStep(1));
+  el.backToCountriesBtn.addEventListener('click', onCountryChange);
   el.backToProductsBtn.addEventListener('click', () => goToStep(2));
   el.startOverBtn.addEventListener('click', startOver);
+  
+  // Add event listener for the "Change Countries" button in step 3
+  document.getElementById('backToCountries').addEventListener('click', changeCountries);
+  
   el.showBtn.addEventListener('click', () => {
     if (!state.ratesLoaded) {
       el.comparisonError.style.display = 'block';
@@ -173,5 +177,13 @@ export function startOver() {
   el.nextBtn.disabled = true;
   document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
   el.showBtn.disabled = true;
+  goToStep(1);
+}
+
+export function changeCountries() {
+  // Keep the selected product but reset country selection
+  el.fromSelect.value = '';
+  el.toSelect.value = '';
+  el.nextBtn.disabled = true;
   goToStep(1);
 }
