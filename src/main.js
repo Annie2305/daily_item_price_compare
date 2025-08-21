@@ -7,7 +7,7 @@ const exchangeAPI = new ExchangeRateAPI();
 
 async function loadExchangeRates(force = false) {
   try {
-    updateExchangeRateStatus('loading', '🔄 載入匯率中...');
+    updateExchangeRateStatus('loading', '🔄 Loading exchange rates...');
     const rates = await exchangeAPI.getRates(force);
     setRates(rates);
 
@@ -15,7 +15,7 @@ async function loadExchangeRates(force = false) {
     const lastUpdated = new Date().toLocaleString();
     updateExchangeRateStatus(
       'success',
-      `✅ 匯率已載入 (${rateCount} 種貨幣) | 更新時間: ${lastUpdated}`,
+      `✅ Exchange rates loaded (${rateCount} currencies) | Updated: ${lastUpdated}`,
       true,
       () => loadExchangeRates(true)
     );
@@ -24,7 +24,7 @@ async function loadExchangeRates(force = false) {
     setRatesError(err.message);
     updateExchangeRateStatus(
       'error',
-      `❌ 匯率載入失敗: ${err.message}`,
+      `❌ Failed to load exchange rates: ${err.message}`,
       true,
       () => loadExchangeRates(true)
     );

@@ -68,7 +68,7 @@ export function bindNavigation() {
         el.comparisonError.style.display = 'none';
         el.comparisonResult.style.display = 'block';
       } catch (err) {
-        console.error('比較計算失敗:', err);
+        console.error('Comparison calculation failed:', err);
         el.comparisonError.style.display = 'block';
         el.comparisonResult.style.display = 'none';
       }
