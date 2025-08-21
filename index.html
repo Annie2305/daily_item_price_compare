@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>PriceCompare - Global Price Comparison</title>
+  <link rel="stylesheet" href="./style.css"/>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>PriceCompare</h1>
+      <p>Compare prices of everyday items between countries worldwide with real-time exchange rates</p>
+    </div>
+
+    <!-- Exchange Rate Status Bar -->
+    <div class="exchange-rate-status loading" id="exchangeRateStatus">
+      <span>🔄 載入匯率中...</span>
+    </div>
+
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Step 1 -->
+      <div class="step active" id="step1">
+        <div class="step-header">
+          <span class="step-number">1</span>
+          <span class="step-title">Choose Countries</span>
+        </div>
+
+        <div class="country-selection">
+          <div class="country-selector">
+            <label class="country-label from-label">From</label>
+            <select class="country-select" id="fromCountry"></select>
+          </div>
+          <div class="country-selector">
+            <label class="country-label to-label">To</label>
+            <select class="country-select" id="toCountry"></select>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button class="button" id="nextToProducts" disabled>Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step" id="step2">
+        <div class="step-header">
+          <span class="step-number">2</span>
+          <span class="step-title">Choose Product</span>
+        </div>
+
+        <div class="product-selection">
+          <div class="product-card" data-product="bigmac">
+            <span class="product-icon">🍔</span>
+            <div class="product-name">Big Mac</div>
+          </div>
+          <div class="product-card" data-product="latte">
+            <span class="product-icon">☕</span>
+            <div class="product-name">Starbucks Latte</div>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button class="button secondary" id="backToCountries">Back</button>
+          <button class="button" id="showComparison" disabled>Compare Prices</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step" id="step3">
+        <div class="step-header">
+          <span class="step-number">3</span>
+          <span class="step-title">Price Comparison</span>
+        </div>
+
+        <div id="comparisonError" class="error-message" style="display:none;">
+          <p>Unable to calculate prices. Please check the exchange rate data and try again.</p>
+        </div>
+
+        <div class="comparison-result" id="comparisonResult">
+          <div class="comparison-header">
+            <h3 id="comparisonTitle">Big Mac Price Comparison</h3>
+          </div>
+
+          <div class="comparison-countries">
+            <div class="country-price">
+              <div class="country-name" id="fromCountryName">United States</div>
+              <div class="local-price" id="fromLocalPrice">$5.50</div>
+              <div class="usd-price" id="fromUsdPrice">$5.50</div>
+            </div>
+
+            <div class="vs-separator">VS</div>
+
+            <div class="country-price">
+              <div class="country-name" id="toCountryName">Japan</div>
+              <div class="local-price" id="toLocalPrice">¥420</div>
+              <div class="usd-price" id="toUsdPrice">$3.20</div>
+            </div>
+          </div>
+
+          <div class="difference-section">
+            <span class="difference-icon" id="differenceIcon">📉</span>
+            <div class="difference-text" id="differenceText">42% Cheaper in Japan</div>
+            <div class="difference-amount" id="differenceAmount">Save $2.30 USD</div>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button class="button secondary" id="backToProducts">Change Product</button>
+          <button class="button" id="startOver">Start Over</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

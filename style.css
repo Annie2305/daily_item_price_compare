@@ -1,0 +1,453 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: #f8f9fa;
+    min-height: 100vh;
+    color: #1a1a1a;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: white;
+    box-shadow: 0 0 40px rgba(0,0,0,0.04);
+}
+
+.header {
+    padding: 32px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+}
+
+.header p {
+    font-size: 16px;
+    color: #6c757d;
+    font-weight: 400;
+}
+
+.exchange-rate-status {
+    padding: 16px 32px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 14px;
+}
+
+.exchange-rate-status.loading {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.exchange-rate-status.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.exchange-rate-status.success {
+    background: #d1edff;
+    color: #055160;
+}
+
+.exchange-rate-status button {
+    margin-left: 12px;
+    padding: 4px 12px;
+    font-size: 12px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.exchange-rate-status button:hover {
+    background: #218838;
+}
+
+.progress-container {
+    padding: 0 32px;
+    background: white;
+}
+
+.progress-bar {
+    height: 2px;
+    background: #e9ecef;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #28a745;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content {
+    padding: 48px 32px;
+}
+
+.step {
+    display: none;
+    animation: slideIn 0.3s ease-out;
+}
+
+.step.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(16px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.step-header {
+    margin-bottom: 40px;
+}
+
+.step-number {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: #28a745;
+    color: white;
+    border-radius: 50%;
+    line-height: 32px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    margin-right: 16px;
+}
+
+.step-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+    vertical-align: middle;
+    letter-spacing: -0.01em;
+}
+
+.country-selection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.country-selector {
+    position: relative;
+}
+
+.country-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.from-label {
+    background: #4a90e2;
+}
+
+.to-label {
+    background: #6c757d;
+}
+
+.country-select {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 16px;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 48px;
+}
+
+.country-select:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.country-select:hover {
+    border-color: #adb5bd;
+}
+
+.product-selection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 48px;
+}
+
+.product-card {
+    padding: 32px 24px;
+    border: 1px solid #dee2e6;
+    border-radius: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: white;
+    position: relative;
+}
+
+.product-card:hover {
+    border-color: #28a745;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.product-card.selected {
+    border-color: #28a745;
+    background: #f8fff9;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.product-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 24px;
+    height: 24px;
+    background: #28a745;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.product-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.product-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.comparison-result {
+    background: #f8f9fa;
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 32px;
+    border: 1px solid #e9ecef;
+}
+
+.comparison-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.comparison-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.comparison-countries {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.country-price {
+    flex: 1;
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    margin: 0 12px;
+}
+
+.country-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.local-price {
+    font-size: 16px;
+    color: #6c757d;
+    margin-bottom: 8px;
+}
+
+.usd-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.vs-separator {
+    font-size: 24px;
+    font-weight: 700;
+    color: #6c757d;
+    text-align: center;
+    min-width: 60px;
+}
+
+.difference-section {
+    text-align: center;
+    padding: 24px;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e9ecef;
+}
+
+.difference-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.difference-text {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.difference-amount {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.higher { color: #dc3545; }
+.lower { color: #28a745; }
+.same { color: #6c757d; }
+
+.button-container {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.button {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.button:hover:not(:disabled) {
+    background: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.button:disabled {
+    background: #adb5bd;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.button.secondary {
+    background: white;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+}
+
+.button.secondary:hover:not(:disabled) {
+    background: #f8f9fa;
+    color: #495057;
+    border-color: #adb5bd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .country-selection {
+        grid-template-columns: 1fr;
+    }
+    
+    .product-selection {
+        grid-template-columns: 1fr;
+    }
+    
+    .comparison-countries {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .country-price {
+        margin: 0;
+    }
+    
+    .vs-separator {
+        order: 0;
+        margin: 8px 0;
+    }
+    
+    .content {
+        padding: 32px 20px;
+    }
+    
+    .header {
+        padding: 24px 20px;
+    }
+    
+    .progress-container {
+        padding: 0 20px;
+    }
+
+    .exchange-rate-status {
+        padding: 12px 20px;
+    }
+}

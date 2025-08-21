@@ -1,0 +1,22 @@
+{
+    "success": true,
+    "timestamp": 0,
+    "base": "USD",
+    "date": "1970-01-01",
+    "rates": {
+      "EUR": 0.9,
+      "GBP": 0.78,
+      "JPY": 150,
+      "CNY": 7.2,
+      "KRW": 1350,
+      "INR": 83,
+      "BRL": 5.1,
+      "CAD": 1.35,
+      "AUD": 1.5,
+      "SGD": 1.35,
+      "TWD": 32,
+      "RUB": 90,
+      "MXN": 17
+    }
+  }
+  
