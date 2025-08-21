@@ -23,23 +23,23 @@ export const CURRENCY_SYMBOLS = {
   };
   
   export const countryNames = {
-    // Existing
-    US: 'United States', UK: 'United Kingdom', CA: 'Canada',
-    AU: 'Australia', DE: 'Germany', FR: 'France', JP: 'Japan',
-    CN: 'China', IN: 'India', BR: 'Brazil', MX: 'Mexico',
-    RU: 'Russia', TW: 'Taiwan', KR: 'South Korea', SG: 'Singapore',
-    // Added list (from screenshot)
-    AE: 'United Arab Emirates', AR: 'Argentina', AZ: 'Azerbaijan',
-    BH: 'Bahrain', CH: 'Switzerland', CL: 'Chile', CO: 'Colombia',
-    CR: 'Costa Rica', CZ: 'Czech Republic', DK: 'Denmark',
-    EG: 'Egypt', EA: 'Euro area', GT: 'Guatemala', HK: 'Hong Kong',
-    HN: 'Honduras', HU: 'Hungary', ID: 'Indonesia', IL: 'Israel',
-    JO: 'Jordan', KW: 'Kuwait', LB: 'Lebanon', MD: 'Moldova',
-    MY: 'Malaysia', NI: 'Nicaragua', NO: 'Norway', NZ: 'New Zealand',
-    OM: 'Oman', PK: 'Pakistan', PE: 'Peru', PH: 'Philippines',
-    PL: 'Poland', QA: 'Qatar', RO: 'Romania', SA: 'Saudi Arabia',
-    SE: 'Sweden', TH: 'Thailand', TR: 'Turkey', UA: 'Ukraine',
-    UY: 'Uruguay', VE: 'Venezuela', VN: 'Vietnam', ZA: 'South Africa'
+    // Sorted alphabetically by country name
+    AE: 'United Arab Emirates', AR: 'Argentina', AT: 'Austria', AU: 'Australia', AZ: 'Azerbaijan',
+    BH: 'Bahrain', BE: 'Belgium', BO: 'Bolivia', BR: 'Brazil', BG: 'Bulgaria',
+    CA: 'Canada', KH: 'Cambodia', CL: 'Chile', CN: 'China', CO: 'Colombia',
+    CR: 'Costa Rica', CY: 'Cyprus', CZ: 'Czech Republic', DK: 'Denmark',
+    EG: 'Egypt', EA: 'Euro area', SV: 'El Salvador', FI: 'Finland', FR: 'France',
+    DE: 'Germany', GR: 'Greece', GT: 'Guatemala', HK: 'Hong Kong', HN: 'Honduras',
+    HU: 'Hungary', ID: 'Indonesia', IN: 'India', IE: 'Ireland', IL: 'Israel',
+    IT: 'Italy', JM: 'Jamaica', JP: 'Japan', JO: 'Jordan', KW: 'Kuwait',
+    KR: 'South Korea', LB: 'Lebanon', LU: 'Luxembourg', MD: 'Moldova', MY: 'Malaysia',
+    MX: 'Mexico', MC: 'Monaco', MA: 'Morocco', NL: 'Netherlands', NZ: 'New Zealand',
+    NI: 'Nicaragua', NO: 'Norway', OM: 'Oman', PA: 'Panama', PE: 'Peru',
+    PH: 'Philippines', PL: 'Poland', PT: 'Portugal', PR: 'Puerto Rico', QA: 'Qatar',
+    RO: 'Romania', RU: 'Russia', SA: 'Saudi Arabia', SG: 'Singapore', SK: 'Slovakia',
+    ES: 'Spain', SE: 'Sweden', CH: 'Switzerland', TW: 'Taiwan', TH: 'Thailand',
+    TT: 'Trinidad and Tobago', TR: 'Turkey', UA: 'Ukraine', UK: 'United Kingdom',
+    US: 'United States', UY: 'Uruguay', VE: 'Venezuela', VN: 'Vietnam', ZA: 'South Africa'
   };
 
   // Additional countries for latte USD dataset

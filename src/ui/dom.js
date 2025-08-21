@@ -85,6 +85,22 @@ function onCountryChange() {
   state.fromCountry = el.fromSelect.value;
   state.toCountry = el.toSelect.value;
   el.nextBtn.disabled = !(state.fromCountry && state.toCountry);
+  
+  // If we're changing countries and already have a product selected, auto-advance to results
+  if (state.currentStep === 1 && state.selectedProduct && state.fromCountry && state.toCountry) {
+    // Auto-advance to step 3 (results) since we already have a product
+    goToStep(3);
+    // Trigger the comparison calculation
+    try {
+      renderComparison();
+      el.comparisonError.style.display = 'none';
+      el.comparisonResult.style.display = 'block';
+    } catch (err) {
+      console.error('Comparison calculation failed:', err);
+      el.comparisonError.style.display = 'block';
+      el.comparisonResult.style.display = 'none';
+    }
+  }
 }
 
 export function goToStep(step) {
